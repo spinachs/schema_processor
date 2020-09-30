@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <groupId>com.jd.datamill9n.component</groupId>
+    <artifactId>schema-processor</artifactId>
+    <version>0.0.0.1-SNAPSHOT</version>
+    <name>schema-processor</name>
+    <description>数坊数据库查询通用框架</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <checkstyle.config.file>checkstyle.xml</checkstyle.config.file>
+        <common.spring.master.version>1.2.1</common.spring.master.version>
+        <datamill9n.common.error.version>2.0.0</datamill9n.common.error.version>
+        <datamill9n.common.util.version>2.0.0</datamill9n.common.util.version>
+        <datamill9n.component.multi-ds.version>2.0.0</datamill9n.component.multi-ds.version>
+        <datamill9n.component.bean.version>1.2.1</datamill9n.component.bean.version>
+    </properties>
+
+    <modules>
+        <module>dmschema-spring-boot-autoconfigure</module>
+        <module>dmschema-spring-boot-starter</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.jd.datamill9n.component</groupId>
+                <artifactId>dmschema-spring-boot-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>common.spring.master</artifactId>
+                <groupId>com.jd.datamill9n</groupId>
+                <version>${common.spring.master.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>com.jd.datamill9n</groupId>
+                <artifactId>common.error</artifactId>
+                <version>${datamill9n.common.error.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jd.datamill9n</groupId>
+                <artifactId>common.util</artifactId>
+                <version>${datamill9n.common.util.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jd.datamill9n</groupId>
+                <artifactId>component.common-bean</artifactId>
+                <version>${datamill9n.component.bean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jd.datamill9n</groupId>
+                <artifactId>component.multi-ds.jsf-service</artifactId>
+                <version>${datamill9n.component.multi-ds.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <configLocation>${checkstyle.config.file}</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <skip>false</skip>
+                    <failOnViolation>true</failOnViolation>
+                    <failsOnError>true</failsOnError>
+                    <consoleOutput>true</consoleOutput>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>6.15</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Maven JD Releases Repository</name>
+            <url>http://artifactory.jd.com/libs-releases-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>JD maven2 repository-snapshots</name>
+            <url>http://artifactory.jd.com/libs-snapshots-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jd.datamill9n.component.autoconfigure.mapper.MonitorMapper">
+    <select id="selectMonitor" resultType="com.jd.datamill9n.component.autoconfigure.table.MonitorTable">
+        SELECT
+        endDate,
+        audienceId,
+        layer,
+        averageOrderCount90Days,
+        averageOrderAmount90Days,
+        averageAddCartCount90Days,
+        averageOrderCount2Years,
+        averageOrderDays90Days,
+        averageViewCount90Days,
+        top5AverageOrderCount90Days,
+        top5AverageOrderAmount90Days,
+        top5AverageAddCartCount90Days,
+        top5AverageOrderCount2Years,
+        top5AverageOrderDays90Days,
+        top5AverageViewCount90Days
+        FROM ads_polaris_clv_disassemble_feature_trend_pre/statistics
+        WHERE monitorId = #{monitorId}
+        and startDate = #{startDate}
+        and endDate = #{endDate}
+        LIMIT 10000
+    </select>
+</mapper>

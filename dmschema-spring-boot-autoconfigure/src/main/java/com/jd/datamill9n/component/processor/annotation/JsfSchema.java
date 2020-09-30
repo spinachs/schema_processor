@@ -21,5 +21,5 @@ public @interface JsfSchema {
     String datasource();
     Class<?> tableBean() default Void.class;
     Class<? extends Post>[] postActions() default {};
-    String transformSpecs();
+    String transformSpecs() default "";
 }

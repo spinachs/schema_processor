@@ -36,7 +36,6 @@
 
   <properties>
     <module.name>com.jd.datamill9n.component.schemaprocessor.autoconfigure</module.name>
-    <maven.deploy.skip>true</maven.deploy.skip>
   </properties>
   <dependencies>
     <dependency>

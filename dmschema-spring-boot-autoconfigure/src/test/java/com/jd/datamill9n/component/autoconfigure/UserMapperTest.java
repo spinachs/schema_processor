@@ -1,10 +1,24 @@
 package com.jd.datamill9n.component.autoconfigure;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jd.datamill9n.component.autoconfigure.mapper.MonitorMapper;
+import com.jd.datamill9n.component.multi_ds.service.jsf.DatasourceService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.io.IOException;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * TODO
@@ -15,27 +29,28 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserMapperTest {
+    @MockBean
+    private DatasourceService datasourceService;
     @Autowired
-    private StudentMapper studentMapper;
+    private ResourceLoader resourceLoader;
 
-    @Test
-    public void testInsert() {
-        Student stu = new Student();
-        stu.setName("a");
-        stu.setAge(1);
-        stu.setEmail("a@b.com");
-        studentMapper.insert(stu);
+    @Autowired
+    private MonitorMapper studentMapper;
+
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    @Before
+    public void setup() throws IOException {
+        initMocks(this);
+
+        Resource resource = resourceLoader.getResource("classpath:/monitor.json");
+        List content = objectMapper.readValue(resource.getInputStream(), List.class);
+
+        doReturn(content).when(datasourceService).executeSql(any());
     }
 
     @Test
-    public void testSelectOne() {
-        Student student = studentMapper.selectOne(1);
-        System.out.println(student);
-    }
-
-    @Test
-    public void testSelectOnes() {
-        Student student = studentMapper.selectOnes(1, 1);
-        System.out.println(student);
+    public void testSelect() {
+        studentMapper.selectMonitor(0L, "", "");
     }
 }

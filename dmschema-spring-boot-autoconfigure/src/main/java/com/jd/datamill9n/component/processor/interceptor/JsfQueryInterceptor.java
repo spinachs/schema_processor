@@ -61,8 +61,8 @@ public class JsfQueryInterceptor implements Interceptor {
         String className = id.substring(0, splitIndex);
         String methodName = id.substring(splitIndex + 1);
 
-        Class<?> aClass = ClassUtils.forName(className, getClass().getClassLoader());
-        Method method = Arrays.stream(aClass.getMethods())
+        Class<?> mapperClass = ClassUtils.forName(className, getClass().getClassLoader());
+        Method method = Arrays.stream(mapperClass.getMethods())
                 .filter(it -> it.getName().equals(methodName))
                 .findFirst()
                 .orElseThrow(() -> new DatamillException(ErrorStatus.REG_REQUEST_PARAM_INVALID, "查询方法不存在"));

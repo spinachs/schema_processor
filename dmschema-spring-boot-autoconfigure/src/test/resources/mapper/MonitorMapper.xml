@@ -24,4 +24,9 @@
         and endDate = #{endDate}
         LIMIT 10000
     </select>
+    <select id="selectById" resultType="com.jd.datamill9n.component.autoconfigure.table.Student">
+        select *
+        from student
+        where id = #{id}
+    </select>
 </mapper>

@@ -53,4 +53,9 @@ public class UserMapperTest {
     public void testSelect() {
         studentMapper.selectMonitor(0L, "", "");
     }
+
+    @Test
+    public void testStudent() {
+        studentMapper.selectById(1L);
+    }
 }
